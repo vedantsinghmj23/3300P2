@@ -1,0 +1,152 @@
+<html>
+
+<head>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+
+<style>
+  .gridlines line {
+    stroke: #bbb;
+  }
+
+  .gridlines .domain {
+    stroke: none;
+  }
+</style>
+
+<body>
+  <svg id="svg1" height=400 width=800 style="border:1px solid black;"></svg>
+
+  <script>
+    const requestData = async function () {
+      const svg = d3.select("#svg1");
+      const margin = { top: 50, right: 40, bottom: 30, left: 60 };
+      const chartWidth = 800 - margin.left - margin.right;
+      const chartHeight = 400 - margin.top - margin.bottom;
+      let annotations = svg.append("g").attr("id", "annotations");
+      let chartArea = svg.append("g").attr("id", "points")
+        .attr("transform", `translate(${margin.left},${margin.top})`);
+
+      const groups = await d3.csv("./coviddata.csv");
+      console.log(groups);
+      var females = []
+      var males = []
+      groups.forEach(data => {
+        if (data.demographic_value == "Female" && data.administered_date.substring(data.administered_date.length - 2) == "/1" && data.administered_date.substring(0, 4) == "2021") {
+          females.push(data)
+        }
+        if (data.demographic_value == "Male" && data.administered_date.substring(data.administered_date.length - 2) == "/1" && data.administered_date.substring(0, 4) == "2021") {
+          males.push(data)
+        }
+      })
+
+      const timeParser = d3.timeParse('%Y/%m/%d');
+      const timeScale = d3.scaleTime()
+        .domain([timeParser("2021/1/1"), timeParser("2021/10/1")])
+        .range([0, chartWidth]);
+
+      const valueScale = d3.scaleLinear()
+        .domain([2000, 300000])
+        .range([chartHeight, 0])
+
+      const genderScale = d3.scaleOrdinal(d3.schemeCategory10)
+
+      let leftAxis = d3.axisLeft(valueScale)
+      let leftGridlines = d3.axisLeft(valueScale)
+        .tickSize(-chartWidth)
+        .tickFormat("")
+
+      let series = []
+      male_data = { gender: "Male", values: males }
+      female_data = { gender: "Female", values: females }
+      series.push(male_data)
+      series.push(female_data)
+
+      annotations.append("g")
+        .attr("class", "y axis")
+        .attr("transform", `translate(${margin.left - 10},${margin.top})`)
+        .call(leftAxis)
+      annotations.append("g")
+        .attr("class", "y gridlines")
+        .attr("transform", `translate(${margin.left - 10},${margin.top})`)
+        .call(leftGridlines);
+
+      let bottomAxis = d3.axisBottom(timeScale)
+        .tickFormat(d3.timeFormat("%b"))
+      let bottomGridlines = d3.axisBottom(timeScale)
+        .tickSize(-chartHeight)
+        .tickFormat("")
+
+      annotations.append("g")
+        .attr("class", "x axis")
+        .attr("transform", `translate(${margin.left},${chartHeight + margin.top + 10})`)
+        .call(bottomAxis);
+      annotations.append("g")
+        .attr("class", "x gridlines")
+        .attr("transform", `translate(${margin.left},${chartHeight + margin.top + 10})`)
+        .call(bottomGridlines);
+
+      var lineGen = d3.line()
+        .x(d => timeScale(timeParser(d.administered_date)))
+        .y(d => valueScale(Number(d.total_doses)));
+
+      lines = chartArea.selectAll("g.segment")
+        .data(series)
+        .join("g")
+        .attr("class", "segment")
+        .attr("stroke", d => d.gender == "Male" ? "#427ED1" : "#ffa9d0")
+      // .style("stroke", d => genderScale(d.gender));
+
+      lines.append("path")
+        .attr('d', d => lineGen(d.values))
+        .style("fill", "none")
+        .style("stroke-width", 2);
+
+      let circles = lines.selectAll("circle")
+        .data(d => d.values)
+        .join("circle")
+        .attr("r", 5)
+        .attr("cx", d => timeScale(timeParser(d.administered_date)))
+        .attr("cy", d => valueScale(Number(d.total_doses)))
+        .attr("fill", d => d.demographic_value == "Male" ? "#427ED1" : "#ffa9d0")
+      // .attr("fill", d => genderScale(d.demographic_value))
+
+      svg.append("text")
+        .attr("id", "info")
+        .attr("x", 600)
+        .attr("y", 10)
+
+      svg.append("text")
+        .attr("x", 275)
+        .attr("y", 20)
+        .text("Monthly COVID Doses by Gender in 2021")
+
+
+
+      circles.on("mouseover", function () {
+        d3.select(this)
+          .attr("r", 8);
+        d3.select("#info")
+          .text(d3.select(this).datum().total_doses)
+      })
+
+      circles.on("mouseout", function () {
+        d3.select(this)
+          .attr("r", 4);
+        d3.select("#info")
+          .text("")
+      })
+
+
+      console.log(series)
+
+
+    }
+
+    requestData();
+
+  </script>
+
+</body>
+
+</html>

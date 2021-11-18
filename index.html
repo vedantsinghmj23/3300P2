@@ -16,9 +16,10 @@
 
 <body>
   <svg id="svg1" height=400 width=800 style="border:1px solid black;"></svg>
+  <svg id="svg2" height=400 width=900 style="border:1px solid black;"></svg>
 
   <script>
-    const requestData = async function () {
+    const requestData1 = async function () {
       const svg = d3.select("#svg1");
       const margin = { top: 50, right: 40, bottom: 30, left: 60 };
       const chartWidth = 800 - margin.left - margin.right;
@@ -27,11 +28,11 @@
       let chartArea = svg.append("g").attr("id", "points")
         .attr("transform", `translate(${margin.left},${margin.top})`);
 
-      const groups = await d3.csv("./coviddata.csv");
-      console.log(groups);
+      const info = await d3.csv("./coviddata.csv");
+      console.log(info);
       var females = []
       var males = []
-      groups.forEach(data => {
+      info.forEach(data => {
         if (data.demographic_value == "Female" && data.administered_date.substring(data.administered_date.length - 2) == "/1" && data.administered_date.substring(0, 4) == "2021") {
           females.push(data)
         }
@@ -95,21 +96,21 @@
         .join("g")
         .attr("class", "segment")
         .attr("stroke", d => d.gender == "Male" ? "#427ED1" : "#ffa9d0")
-      // .style("stroke", d => genderScale(d.gender));
 
       lines.append("path")
         .attr('d', d => lineGen(d.values))
         .style("fill", "none")
-        .style("stroke-width", 2);
+        .style("stroke-width", 2)
+        .attr("opacity", .7);
 
       let circles = lines.selectAll("circle")
         .data(d => d.values)
         .join("circle")
-        .attr("r", 5)
+        .attr("r", 4)
         .attr("cx", d => timeScale(timeParser(d.administered_date)))
         .attr("cy", d => valueScale(Number(d.total_doses)))
         .attr("fill", d => d.demographic_value == "Male" ? "#427ED1" : "#ffa9d0")
-      // .attr("fill", d => genderScale(d.demographic_value))
+        .attr("opacity", .7)
 
       svg.append("text")
         .attr("id", "info")
@@ -121,18 +122,18 @@
         .attr("y", 20)
         .text("Monthly COVID Doses by Gender in 2021")
 
-
-
       circles.on("mouseover", function () {
         d3.select(this)
-          .attr("r", 8);
+          .attr("r", 8)
+          .attr("opacity", 1);
         d3.select("#info")
           .text(d3.select(this).datum().total_doses)
       })
 
       circles.on("mouseout", function () {
         d3.select(this)
-          .attr("r", 4);
+          .attr("r", 4)
+          .attr("opacity", .7);
         d3.select("#info")
           .text("")
       })
@@ -143,7 +144,157 @@
 
     }
 
-    requestData();
+    requestData1();
+
+  </script>
+
+
+
+
+
+
+  <script>
+    const requestData2 = async function () {
+      const svg2 = d3.select("#svg2");
+      const width = svg2.attr("width");
+      const height = svg2.attr("height");
+      const margin = { top: 40, right: 10, bottom: 30, left: 60 };
+      const chartWidth = width - margin.left - margin.right;
+      const chartHeight = height - margin.top - margin.bottom;
+
+      let annotations1 = svg2.append("g").attr("id", "annotations1");
+      let chartArea1 = svg2.append("g").attr("id", "points")
+        .attr("transform", `translate(${margin.left},${margin.top})`);
+
+      const groups = await d3.csv("./us_state_vaccinations.csv");
+      const states = await d3.json("./elections.json")
+      console.log(groups)
+      console.log(states)
+      const state_elections = new Map();
+      const abbr = new Map();
+
+      states.forEach(d => {
+        state_elections.set(d.state, d.color)
+        abbr.set(d.state, d.abbr)
+      })
+
+      let data = []
+      groups.forEach(d => {
+        if (d.date == "2021-11-10" && state_elections.has(d.location)) {
+          data.push(d);
+        }
+      })
+      console.log(data)
+
+      data.sort((a, b) => d3.ascending(Number(a.total_vaccinations_per_hundred), Number(b.total_vaccinations_per_hundred)))
+
+      const locations = d3.map(data, d => abbr.get(d.location))
+
+      const stateScale = d3.scalePoint().domain(locations).range([0, chartWidth])
+        .padding(0.1);
+
+      const outcomeScale = d3.scaleOrdinal().domain(['Red', 'Blue'])
+        .range(['#b8351e', '#2369b1']);
+
+      const ppvExtent = d3.extent(data, d => Number(d.total_vaccinations_per_hundred));
+      const avgPPV = d3.mean(data, d => Number(d.total_vaccinations_per_hundred));
+      const ppvDist = Math.max(Math.abs(ppvExtent[0] - avgPPV), Math.abs(ppvExtent[1] - avgPPV));
+      console.log(avgPPV, ppvDist);
+
+      const adjustedPPVExtent = [avgPPV - ppvDist, avgPPV + ppvDist];
+      const ppvScale = d3.scaleLinear().domain(adjustedPPVExtent).range([chartHeight, 0]);
+
+      let leftAxis1 = d3.axisLeft(ppvScale);
+      let leftGridlines1 = d3.axisLeft(ppvScale)
+        .tickSize(-chartWidth - 10)
+        .tickFormat("")
+      annotations1.append("g")
+        .attr("class", "y axis")
+        .attr("transform", `translate(${margin.left - 10},${margin.top})`)
+        .call(leftAxis1)
+      annotations1.append("g")
+        .attr("class", "y gridlines")
+        .attr("transform", `translate(${margin.left - 10},${margin.top})`)
+        .call(leftGridlines1);
+      let bottomAxis1 = d3.axisBottom(stateScale)
+      let bottomAxisG1 = annotations1.append("g")
+        .attr("class", "x axis")
+        .attr("transform", `translate(${margin.left},${chartHeight + margin.top + 10})`)
+        .call(bottomAxis1);
+
+      annotations1.append("line")
+        .attr("class", "avgline")
+        .attr("transform", `translate(${margin.left - 10},${margin.top})`)
+        .attr("x1", 0)
+        .attr("x2", chartWidth + 10)
+        .attr("y1", ppvScale(avgPPV))
+        .attr("y2", ppvScale(avgPPV))
+        .attr("stroke", "black");
+
+      //look at data again
+      let lollipops = chartArea1.selectAll('g.lollipop').data(data)
+        .join('g')
+        .attr('class', 'lollipop')
+        .attr("transform", d => `translate(${Math.floor(stateScale(abbr.get(d.location)))},0)`)
+
+      console.log(lollipops)
+
+      lollipops.append("line")
+        .attr("class", "stick")
+        .attr("x1", 0)
+        .attr("x2", 0)
+        .attr("y1", ppvScale(avgPPV))
+        .attr("y2", d => ppvScale(Number(d.total_vaccinations_per_hundred)))
+        .attr("stroke", "black")
+
+      lollipops.append("circle")
+        .attr("class", "pop")
+        .attr("r", 8)
+        .attr("fill", d => outcomeScale(state_elections.get(d.location)))
+        .attr("cx", 0) // 0 because we have a translate() on the <g> tag for x location
+        .attr("cy", d => ppvScale(Number(d.total_vaccinations_per_hundred)))
+
+      lollipops.append("rect")
+        .attr("class", "activeRegion")
+        .attr("x", -10)
+        .attr("y", d => Math.min(ppvScale(avgPPV), ppvScale(Number(d.total_vaccinations_per_hundred))))
+        .attr("height", d => Math.abs(ppvScale(avgPPV) - ppvScale(Number(d.total_vaccinations_per_hundred))))
+        .attr("width", 20)
+        .attr("opacity", 0);
+
+      const mouseover = svg2.append("g").attr("class", "mouseover")
+        .attr("transform", `translate(${margin.left + 15},${margin.top + 15})`);
+
+      const frame = mouseover.append("rect").attr("class", "frame")
+        // we style this in <head>
+        .attr("x", 0).attr("y", 0)
+        .attr("rx", 5).attr("ry", 5)  // rx and ry round corners
+        .attr("height", 130);  // set width later
+      const textbox = mouseover.append("g").attr("transform", "translate(10,10)");
+      const format = d3.format(',d');
+
+      lollipops.on("mouseover", function () {
+        textbox.html('');  // shorthand to empty out an element
+        mouseover.attr("visibility", "");
+        let stateName = `State: ${d3.select(this).datum().location}`;
+        let result = `Fully Vaccinationed Per 100: ${d3.select(this).datum().people_fully_vaccinated_per_hundred}`;
+        let diff = `Doses Per 100: ${d3.select(this).datum().total_vaccinations_per_hundred}`;
+        textbox.append("text").text(stateName)
+          .attr("x", 0).attr("y", 10);
+        textbox.append("text").text(result)
+          .attr("x", 0).attr("y", 30);
+        textbox.append("text").text(diff)
+          .attr("x", 0).attr("y", 50);
+        //updateMouseover(d3.select(this).datum())
+      });
+
+      lollipops.on("mouseout", function () {
+        mouseover.attr("visibility", "hidden");
+      });
+
+    }
+
+    requestData2();
 
   </script>
 

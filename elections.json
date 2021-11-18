@@ -1,202 +1,252 @@
 [
   {
     "state": "Alabama",
-    "color": "Red"
+    "color": "Red",
+    "abbr": "AL"
   },
   {
     "state": "Alaska",
-    "color": "Red"
+    "color": "Red",
+    "abbr": "AK"
   },
   {
     "state": "Arizona",
-    "color": "Blue"
+    "color": "Blue",
+    "abbr": "AZ"
   },
   {
     "state": "Arkansas",
-    "color": "Red"
+    "color": "Red",
+    "abbr": "AR"
   },
   {
     "state": "California",
-    "color": "Blue"
+    "color": "Blue",
+    "abbr": "CA"
   },
   {
     "state": "Colorado",
-    "color": "Blue"
+    "color": "Blue",
+    "abbr": "CO"
   },
   {
     "state": "Connecticut",
-    "color": "Blue"
+    "color": "Blue",
+    "abbr": "CT"
   },
   {
     "state": "Delaware",
-    "color": "Blue"
+    "color": "Blue",
+    "abbr": "DE"
   },
   {
     "state": "Florida",
-    "color": "Red"
+    "color": "Red",
+    "abbr": "FL"
   },
   {
     "state": "Georgia",
-    "color": "Blue"
+    "color": "Blue",
+    "abbr": "GA"
   },
   {
     "state": "Hawaii",
-    "color": "Blue"
+    "color": "Blue",
+    "abbr": "HI"
   },
   {
     "state": "Idaho",
-    "color": "Red"
+    "color": "Red",
+    "abbr": "ID"
   },
   {
     "state": "Illinois",
-    "color": "Blue"
+    "color": "Blue",
+    "abbr": "IL"
   },
   {
     "state": "Indiana",
-    "color": "Red"
+    "color": "Red",
+    "abbr": "IN"
   },
   {
     "state": "Iowa",
-    "color": "Red"
+    "color": "Red",
+    "abbr": "IA"
   },
   {
     "state": "Kansas",
-    "color": "Red"
+    "color": "Red",
+    "abbr": "KS"
   },
   {
     "state": "Kentucky",
-    "color": "Red"
+    "color": "Red",
+    "abbr": "KY"
   },
   {
     "state": "Louisiana",
-    "color": "Red"
+    "color": "Red",
+    "abbr": "LA"
   },
   {
     "state": "Maine",
-    "color": "Blue"
+    "color": "Blue",
+    "abbr": "ME"
   },
   {
     "state": "Maryland",
-    "color": "Blue"
+    "color": "Blue",
+    "abbr": "MD"
   },
   {
     "state": "Massachusetts",
-    "color": "Blue"
+    "color": "Blue",
+    "abbr": "MA"
   },
   {
     "state": "Michigan",
-    "color": "Blue"
+    "color": "Blue",
+    "abbr": "MI"
   },
   {
     "state": "Minnesota",
-    "color": "Blue"
+    "color": "Blue",
+    "abbr": "MN"
   },
   {
     "state": "Mississippi",
-    "color": "Red"
+    "color": "Red",
+    "abbr": "MS"
   },
   {
     "state": "Missouri",
-    "color": "Red"
+    "color": "Red",
+    "abbr": "MO"
   },
   {
     "state": "Montana",
-    "color": "Red"
+    "color": "Red",
+    "abbr": "MT"
   },
   {
     "state": "Nebraska",
-    "color": "Red"
+    "color": "Red",
+    "abbr": "NE"
   },
   {
     "state": "Nevada",
-    "color": "Blue"
+    "color": "Blue",
+    "abbr": "NV"
   },
   {
     "state": "New Hampshire",
-    "color": "Blue"
+    "color": "Blue",
+    "abbr": "NH"
   },
   {
     "state": "New Jersey",
-    "color": "Blue"
+    "color": "Blue",
+    "abbr": "NJ"
   },
   {
     "state": "New Mexico",
-    "color": "Blue"
+    "color": "Blue",
+    "abbr": "NM"
   },
   {
-    "state": "New York",
-    "color": "Blue"
+    "state": "New York State",
+    "color": "Blue",
+    "abbr": "NY"
   },
   {
     "state": "North Carolina",
-    "color": "Red"
+    "color": "Red",
+    "abbr": "NC"
   },
   {
     "state": "North Dakota",
-    "color": "Red"
+    "color": "Red",
+    "abbr": "ND"
   },
   {
     "state": "Ohio",
-    "color": "Red"
+    "color": "Red",
+    "abbr": "OH"
   },
   {
     "state": "Oklahoma",
-    "color": "Red"
+    "color": "Red",
+    "abbr": "OK"
   },
   {
     "state": "Oregon",
-    "color": "Blue"
+    "color": "Blue",
+    "abbr": "OR"
   },
   {
     "state": "Pennsylvania",
-    "color": "Blue"
+    "color": "Blue",
+    "abbr": "PA"
   },
   {
     "state": "Rhode Island",
-    "color": "Blue"
+    "color": "Blue",
+    "abbr": "RI"
   },
   {
     "state": "South Carolina",
-    "color": "Red"
+    "color": "Red",
+    "abbr": "SC"
   },
   {
     "state": "South Dakota",
-    "color": "Red"
+    "color": "Red",
+    "abbr": "SD"
   },
   {
     "state": "Tennessee",
-    "color": "Red"
+    "color": "Red",
+    "abbr": "TN"
   },
   {
     "state": "Texas",
-    "color": "Red"
+    "color": "Red",
+    "abbr": "TX"
   },
   {
     "state": "Utah",
-    "color": "Red"
+    "color": "Red",
+    "abbr": "UT"
   },
   {
     "state": "Vermont",
-    "color": "Blue"
+    "color": "Blue",
+    "abbr": "VT"
   },
   {
     "state": "Virginia",
-    "color": "Blue"
+    "color": "Blue",
+    "abbr": "VA"
   },
   {
     "state": "Washington",
-    "color": "Blue"
+    "color": "Blue",
+    "abbr": "WA"
   },
   {
     "state": "West Virginia",
-    "color": "Red"
+    "color": "Red",
+    "abbr": "WV"
   },
   {
     "state": "Wisconsin",
-    "color": "Blue"
+    "color": "Blue",
+    "abbr": "WI"
   },
   {
     "state": "Wyoming",
-    "color": "Red"
+    "color": "Red",
+    "abbr": "WY"
   }
 ]

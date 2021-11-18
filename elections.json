@@ -1,0 +1,202 @@
+[
+  {
+    "state": "Alabama",
+    "color": "Red"
+  },
+  {
+    "state": "Alaska",
+    "color": "Red"
+  },
+  {
+    "state": "Arizona",
+    "color": "Blue"
+  },
+  {
+    "state": "Arkansas",
+    "color": "Red"
+  },
+  {
+    "state": "California",
+    "color": "Blue"
+  },
+  {
+    "state": "Colorado",
+    "color": "Blue"
+  },
+  {
+    "state": "Connecticut",
+    "color": "Blue"
+  },
+  {
+    "state": "Delaware",
+    "color": "Blue"
+  },
+  {
+    "state": "Florida",
+    "color": "Red"
+  },
+  {
+    "state": "Georgia",
+    "color": "Blue"
+  },
+  {
+    "state": "Hawaii",
+    "color": "Blue"
+  },
+  {
+    "state": "Idaho",
+    "color": "Red"
+  },
+  {
+    "state": "Illinois",
+    "color": "Blue"
+  },
+  {
+    "state": "Indiana",
+    "color": "Red"
+  },
+  {
+    "state": "Iowa",
+    "color": "Red"
+  },
+  {
+    "state": "Kansas",
+    "color": "Red"
+  },
+  {
+    "state": "Kentucky",
+    "color": "Red"
+  },
+  {
+    "state": "Louisiana",
+    "color": "Red"
+  },
+  {
+    "state": "Maine",
+    "color": "Blue"
+  },
+  {
+    "state": "Maryland",
+    "color": "Blue"
+  },
+  {
+    "state": "Massachusetts",
+    "color": "Blue"
+  },
+  {
+    "state": "Michigan",
+    "color": "Blue"
+  },
+  {
+    "state": "Minnesota",
+    "color": "Blue"
+  },
+  {
+    "state": "Mississippi",
+    "color": "Red"
+  },
+  {
+    "state": "Missouri",
+    "color": "Red"
+  },
+  {
+    "state": "Montana",
+    "color": "Red"
+  },
+  {
+    "state": "Nebraska",
+    "color": "Red"
+  },
+  {
+    "state": "Nevada",
+    "color": "Blue"
+  },
+  {
+    "state": "New Hampshire",
+    "color": "Blue"
+  },
+  {
+    "state": "New Jersey",
+    "color": "Blue"
+  },
+  {
+    "state": "New Mexico",
+    "color": "Blue"
+  },
+  {
+    "state": "New York",
+    "color": "Blue"
+  },
+  {
+    "state": "North Carolina",
+    "color": "Red"
+  },
+  {
+    "state": "North Dakota",
+    "color": "Red"
+  },
+  {
+    "state": "Ohio",
+    "color": "Red"
+  },
+  {
+    "state": "Oklahoma",
+    "color": "Red"
+  },
+  {
+    "state": "Oregon",
+    "color": "Blue"
+  },
+  {
+    "state": "Pennsylvania",
+    "color": "Blue"
+  },
+  {
+    "state": "Rhode Island",
+    "color": "Blue"
+  },
+  {
+    "state": "South Carolina",
+    "color": "Red"
+  },
+  {
+    "state": "South Dakota",
+    "color": "Red"
+  },
+  {
+    "state": "Tennessee",
+    "color": "Red"
+  },
+  {
+    "state": "Texas",
+    "color": "Red"
+  },
+  {
+    "state": "Utah",
+    "color": "Red"
+  },
+  {
+    "state": "Vermont",
+    "color": "Blue"
+  },
+  {
+    "state": "Virginia",
+    "color": "Blue"
+  },
+  {
+    "state": "Washington",
+    "color": "Blue"
+  },
+  {
+    "state": "West Virginia",
+    "color": "Red"
+  },
+  {
+    "state": "Wisconsin",
+    "color": "Blue"
+  },
+  {
+    "state": "Wyoming",
+    "color": "Red"
+  }
+]

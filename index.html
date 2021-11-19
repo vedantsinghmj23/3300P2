@@ -250,6 +250,25 @@
 
       console.log(lollipops)
 
+
+      svg2.append("text")
+               .style("font", "bold 15px arial")
+               .attr("y", 375)
+               .attr("x", 455)
+               .attr("dy", "1em")
+               .style("text-anchor", "middle")
+               .text("States");
+
+      svg2.append("text")
+          .style("font", "bold 15px arial")
+          .attr("transform", "rotate(-90)")
+          .attr("y", 5)
+          .attr("x", -200)
+          .attr("dy", "1em")
+          .style("text-anchor", "middle")
+          .text("Fully-vaccinated per Hundred");
+      
+
       lollipops.append("line")
         .attr("class", "stick")
         .attr("x1", 0)

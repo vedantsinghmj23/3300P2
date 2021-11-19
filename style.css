@@ -1,0 +1,22 @@
+.gridlines line {
+	stroke: #bbb;
+}
+
+.gridlines .domain {
+	stroke: none;
+}
+
+.title {
+	border: 3px solid #8a8a8a;
+	background-color: #8a8a8a;
+	text-align: center;
+}
+
+.center {
+	text-align: center;
+}
+
+.text {
+	font-family: Garamond, serif;
+	text-align: center;
+}

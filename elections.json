@@ -2,251 +2,301 @@
   {
     "state": "Alabama",
     "color": "Red",
-    "abbr": "AL"
+    "abbr": "AL",
+    "party": "Republican"
   },
   {
     "state": "Alaska",
     "color": "Red",
-    "abbr": "AK"
+    "abbr": "AK",
+    "party": "Republican"
   },
   {
     "state": "Arizona",
     "color": "Blue",
-    "abbr": "AZ"
+    "abbr": "AZ",
+    "party": "Democrats"
   },
   {
     "state": "Arkansas",
     "color": "Red",
-    "abbr": "AR"
+    "abbr": "AR",
+    "party": "Republican"
   },
   {
     "state": "California",
     "color": "Blue",
-    "abbr": "CA"
+    "abbr": "CA",
+    "party": "Democrats"
   },
   {
     "state": "Colorado",
     "color": "Blue",
-    "abbr": "CO"
+    "abbr": "CO",
+    "party": "Democrats"
   },
   {
     "state": "Connecticut",
     "color": "Blue",
-    "abbr": "CT"
+    "abbr": "CT",
+    "party": "Democrats"
   },
   {
     "state": "Delaware",
     "color": "Blue",
-    "abbr": "DE"
+    "abbr": "DE",
+    "party": "Democrats"
   },
   {
     "state": "Florida",
     "color": "Red",
-    "abbr": "FL"
+    "abbr": "FL",
+    "party": "Republican"
   },
   {
     "state": "Georgia",
     "color": "Blue",
-    "abbr": "GA"
+    "abbr": "GA",
+    "party": "Democrats"
   },
   {
     "state": "Hawaii",
     "color": "Blue",
-    "abbr": "HI"
+    "abbr": "HI",
+    "party": "Democrats"
   },
   {
     "state": "Idaho",
     "color": "Red",
-    "abbr": "ID"
+    "abbr": "ID",
+    "party": "Republican"
   },
   {
     "state": "Illinois",
     "color": "Blue",
-    "abbr": "IL"
+    "abbr": "IL",
+    "party": "Democrats"
   },
   {
     "state": "Indiana",
     "color": "Red",
-    "abbr": "IN"
+    "abbr": "IN",
+    "party": "Republican"
   },
   {
     "state": "Iowa",
     "color": "Red",
-    "abbr": "IA"
+    "abbr": "IA",
+    "party": "Republican"
   },
   {
     "state": "Kansas",
     "color": "Red",
-    "abbr": "KS"
+    "abbr": "KS",
+    "party": "Republican"
   },
   {
     "state": "Kentucky",
     "color": "Red",
-    "abbr": "KY"
+    "abbr": "KY",
+    "party": "Republican"
   },
   {
     "state": "Louisiana",
     "color": "Red",
-    "abbr": "LA"
+    "abbr": "LA",
+    "party": "Republican"
   },
   {
     "state": "Maine",
     "color": "Blue",
-    "abbr": "ME"
+    "abbr": "ME",
+    "party": "Democrats"
   },
   {
     "state": "Maryland",
     "color": "Blue",
-    "abbr": "MD"
+    "abbr": "MD",
+    "party": "Democrats"
   },
   {
     "state": "Massachusetts",
     "color": "Blue",
-    "abbr": "MA"
+    "abbr": "MA",
+    "party": "Democrats"
   },
   {
     "state": "Michigan",
     "color": "Blue",
-    "abbr": "MI"
+    "abbr": "MI",
+    "party": "Democrats"
   },
   {
     "state": "Minnesota",
     "color": "Blue",
-    "abbr": "MN"
+    "abbr": "MN",
+    "party": "Democrats"
   },
   {
     "state": "Mississippi",
     "color": "Red",
-    "abbr": "MS"
+    "abbr": "MS",
+    "party": "Republican"
   },
   {
     "state": "Missouri",
     "color": "Red",
-    "abbr": "MO"
+    "abbr": "MO",
+    "party": "Republican"
   },
   {
     "state": "Montana",
     "color": "Red",
-    "abbr": "MT"
+    "abbr": "MT",
+    "party": "Republican"
   },
   {
     "state": "Nebraska",
     "color": "Red",
-    "abbr": "NE"
+    "abbr": "NE",
+    "party": "Republican"
   },
   {
     "state": "Nevada",
     "color": "Blue",
-    "abbr": "NV"
+    "abbr": "NV",
+    "party": "Democrats"
   },
   {
     "state": "New Hampshire",
     "color": "Blue",
-    "abbr": "NH"
+    "abbr": "NH",
+    "party": "Democrats"
   },
   {
     "state": "New Jersey",
     "color": "Blue",
-    "abbr": "NJ"
+    "abbr": "NJ",
+    "party": "Democrats"
   },
   {
     "state": "New Mexico",
     "color": "Blue",
-    "abbr": "NM"
+    "abbr": "NM",
+    "party": "Democrats"
   },
   {
     "state": "New York State",
     "color": "Blue",
-    "abbr": "NY"
+    "abbr": "NY",
+    "party": "Democrats"
   },
   {
     "state": "North Carolina",
     "color": "Red",
-    "abbr": "NC"
+    "abbr": "NC",
+    "party": "Republican"
   },
   {
     "state": "North Dakota",
     "color": "Red",
-    "abbr": "ND"
+    "abbr": "ND",
+    "party": "Republican"
   },
   {
     "state": "Ohio",
     "color": "Red",
-    "abbr": "OH"
+    "abbr": "OH",
+    "party": "Republican"
   },
   {
     "state": "Oklahoma",
     "color": "Red",
-    "abbr": "OK"
+    "abbr": "OK",
+    "party": "Republican"
   },
   {
     "state": "Oregon",
     "color": "Blue",
-    "abbr": "OR"
+    "abbr": "OR",
+    "party": "Democrats"
   },
   {
     "state": "Pennsylvania",
     "color": "Blue",
-    "abbr": "PA"
+    "abbr": "PA",
+    "party": "Democrats"
   },
   {
     "state": "Rhode Island",
     "color": "Blue",
-    "abbr": "RI"
+    "abbr": "RI",
+    "party": "Democrats"
   },
   {
     "state": "South Carolina",
     "color": "Red",
-    "abbr": "SC"
+    "abbr": "SC",
+    "party": "Republican"
   },
   {
     "state": "South Dakota",
     "color": "Red",
-    "abbr": "SD"
+    "abbr": "SD",
+    "party": "Republican"
   },
   {
     "state": "Tennessee",
     "color": "Red",
-    "abbr": "TN"
+    "abbr": "TN",
+    "party": "Republican"
   },
   {
     "state": "Texas",
     "color": "Red",
-    "abbr": "TX"
+    "abbr": "TX",
+    "party": "Republican"
   },
   {
     "state": "Utah",
     "color": "Red",
-    "abbr": "UT"
+    "abbr": "UT",
+    "party": "Republican"
   },
   {
     "state": "Vermont",
     "color": "Blue",
-    "abbr": "VT"
+    "abbr": "VT",
+    "party": "Democrats"
   },
   {
     "state": "Virginia",
     "color": "Blue",
-    "abbr": "VA"
+    "abbr": "VA",
+    "party": "Democrats"
   },
   {
     "state": "Washington",
     "color": "Blue",
-    "abbr": "WA"
+    "abbr": "WA",
+    "party": "Democrats"
   },
   {
     "state": "West Virginia",
     "color": "Red",
-    "abbr": "WV"
+    "abbr": "WV",
+    "party": "Republican"
   },
   {
     "state": "Wisconsin",
     "color": "Blue",
-    "abbr": "WI"
+    "abbr": "WI",
+    "party": "Democrats"
   },
   {
     "state": "Wyoming",
     "color": "Red",
-    "abbr": "WY"
+    "abbr": "WY",
+    "party": "Republican"
   }
 ]

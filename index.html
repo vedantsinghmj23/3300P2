@@ -197,7 +197,7 @@
       })
       console.log(data)
 
-      data.sort((a, b) => d3.ascending(Number(a.total_vaccinations_per_hundred), Number(b.total_vaccinations_per_hundred)))
+      data.sort((a, b) => d3.ascending(Number(a.people_fully_vaccinated_per_hundred), Number(b.people_fully_vaccinated_per_hundred)))
 
       const locations = d3.map(data, d => abbr.get(d.location))
 
@@ -207,8 +207,8 @@
       const outcomeScale = d3.scaleOrdinal().domain(['Red', 'Blue'])
         .range(['#b8351e', '#2369b1']);
 
-      const ppvExtent = d3.extent(data, d => Number(d.total_vaccinations_per_hundred));
-      const avgPPV = d3.mean(data, d => Number(d.total_vaccinations_per_hundred));
+      const ppvExtent = d3.extent(data, d => Number(d.people_fully_vaccinated_per_hundred));
+      const avgPPV = d3.mean(data, d => Number(d.people_fully_vaccinated_per_hundred));
       const ppvDist = Math.max(Math.abs(ppvExtent[0] - avgPPV), Math.abs(ppvExtent[1] - avgPPV));
       console.log(avgPPV, ppvDist);
 
@@ -274,7 +274,7 @@
         .attr("x1", 0)
         .attr("x2", 0)
         .attr("y1", ppvScale(avgPPV))
-        .attr("y2", d => ppvScale(Number(d.total_vaccinations_per_hundred)))
+        .attr("y2", d => ppvScale(Number(d.people_fully_vaccinated_per_hundred)))
         .attr("stroke", "black")
 
       lollipops.append("circle")
@@ -282,13 +282,13 @@
         .attr("r", 8)
         .attr("fill", d => outcomeScale(state_elections.get(d.location)))
         .attr("cx", 0) // 0 because we have a translate() on the <g> tag for x location
-        .attr("cy", d => ppvScale(Number(d.total_vaccinations_per_hundred)))
+        .attr("cy", d => ppvScale(Number(d.people_fully_vaccinated_per_hundred)))
 
       lollipops.append("rect")
         .attr("class", "activeRegion")
         .attr("x", -10)
-        .attr("y", d => Math.min(ppvScale(avgPPV), ppvScale(Number(d.total_vaccinations_per_hundred))))
-        .attr("height", d => Math.abs(ppvScale(avgPPV) - ppvScale(Number(d.total_vaccinations_per_hundred))))
+        .attr("y", d => Math.min(ppvScale(avgPPV), ppvScale(Number(d.people_fully_vaccinated_per_hundred))))
+        .attr("height", d => Math.abs(ppvScale(avgPPV) - ppvScale(Number(d.people_fully_vaccinated_per_hundred))))
         .attr("width", 20)
         .attr("opacity", 0);
 
@@ -307,8 +307,8 @@
         textbox.html('');  // shorthand to empty out an element
         mouseover.attr("visibility", "");
         let stateName = `State: ${d3.select(this).datum().location}`;
-        let result = `Fully Vaccinationed Per 100: ${d3.select(this).datum().people_fully_vaccinated_per_hundred}`;
-        let diff = `Doses Per 100: ${d3.select(this).datum().total_vaccinations_per_hundred}`;
+        let result = `People Fully-Vaccinated per 100: ${d3.select(this).datum().people_fully_vaccinated_per_hundred}`;
+        let diff = `Total Vaccinations per 100: ${d3.select(this).datum().total_vaccinations_per_hundred}`;
         textbox.append("text").text(stateName)
           .attr("x", 0).attr("y", 10);
         textbox.append("text").text(result)

@@ -100,7 +100,7 @@
 
       var lineGen = d3.line()
         .x(d => timeScale(timeParser(d.administered_date)))
-        .y(d => valueScale(Number(d.cumulative_total_doses)));
+        .y(d => valueScale(Number(d.total_doses)));
 
       lines = chartArea.selectAll("g.segment")
         .data(series)

@@ -16,7 +16,6 @@
     <svg id="svg1" height=400 width=800 style="border:1px solid black;"></svg>
     <br></br>
     <svg id="svg2" height=400 width=900 style="border:1px solid black;"></svg>
-    <div id="labels"></div>
   </div>
   <script>
     const requestData1 = async function () {
@@ -271,7 +270,6 @@
       data.sort((a, b) => d3.ascending(Number(a.people_fully_vaccinated_per_hundred), Number(b.people_fully_vaccinated_per_hundred)))
 
       const locations = d3.map(data, d => abbr.get(d.location))
-      console.log(locations)
       const stateScale = d3.scalePoint().domain(locations).range([0, chartWidth])
         .padding(0.1);
 

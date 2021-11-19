@@ -33,10 +33,14 @@
       var females = []
       var males = []
       info.forEach(data => {
-        if (data.demographic_value == "Female" && data.administered_date.substring(data.administered_date.length - 2) == "/1" && data.administered_date.substring(0, 4) == "2021") {
+        if (data.demographic_value == "Female" 
+            && data.administered_date.substring(data.administered_date.length - 2) == "/1" 
+            && data.administered_date.substring(0, 4) == "2021") {
           females.push(data)
         }
-        if (data.demographic_value == "Male" && data.administered_date.substring(data.administered_date.length - 2) == "/1" && data.administered_date.substring(0, 4) == "2021") {
+        if (data.demographic_value == "Male" 
+            && data.administered_date.substring(data.administered_date.length - 2) == "/1" 
+            && data.administered_date.substring(0, 4) == "2021") {
           males.push(data)
         }
       })
@@ -45,6 +49,13 @@
       const timeScale = d3.scaleTime()
         .domain([timeParser("2021/1/1"), timeParser("2021/10/1")])
         .range([0, chartWidth]);
+
+      // gender extent
+      const femaleExtent = d3.extent(females, d => d['cumulative_total_doses']);
+      const maleExtent = d3.extent(males, d => d['cumulative_total_doses'])
+
+      const genderMax = d3.max([femaleExtent[1], maleExtent[1]]);
+      const genderMin = d3.min([femaleExtent[0], maleExtent[0]]);
 
       const valueScale = d3.scaleLinear()
         .domain([2000, 300000])
@@ -89,7 +100,7 @@
 
       var lineGen = d3.line()
         .x(d => timeScale(timeParser(d.administered_date)))
-        .y(d => valueScale(Number(d.total_doses)));
+        .y(d => valueScale(Number(d.cumulative_total_doses)));
 
       lines = chartArea.selectAll("g.segment")
         .data(series)
@@ -114,8 +125,8 @@
 
       svg.append("text")
         .attr("id", "info")
-        .attr("x", 600)
-        .attr("y", 10)
+        .attr("x", 500)
+        .attr("y", 200)
 
       svg.append("text")
         .attr("x", 275)
@@ -158,7 +169,7 @@
       const svg2 = d3.select("#svg2");
       const width = svg2.attr("width");
       const height = svg2.attr("height");
-      const margin = { top: 40, right: 10, bottom: 30, left: 60 };
+      const margin = { top: 40, right: 20, bottom: 60, left: 60 };
       const chartWidth = width - margin.left - margin.right;
       const chartHeight = height - margin.top - margin.bottom;
 
@@ -180,7 +191,7 @@
 
       let data = []
       groups.forEach(d => {
-        if (d.date == "2021-11-10" && state_elections.has(d.location)) {
+        if (d.date == "2021-11-17" && state_elections.has(d.location)) {
           data.push(d);
         }
       })

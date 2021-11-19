@@ -21,7 +21,7 @@
   <script>
     const requestData1 = async function () {
       const svg = d3.select("#svg1");
-      const margin = { top: 50, right: 40, bottom: 30, left: 60 };
+      const margin = { top: 50, right: 40, bottom: 30, left: 80 };
       const chartWidth = 800 - margin.left - margin.right;
       const chartHeight = 400 - margin.top - margin.bottom;
       let annotations = svg.append("g").attr("id", "annotations");
@@ -33,17 +33,20 @@
       var females = []
       var males = []
       info.forEach(data => {
-        if (data.demographic_value == "Female" 
-            && data.administered_date.substring(data.administered_date.length - 2) == "/1" 
-            && data.administered_date.substring(0, 4) == "2021") {
+        if (data.demographic_value == "Female"
+          && data.administered_date.substring(data.administered_date.length - 2) == "/1"
+          && data.administered_date.substring(0, 4) == "2021") {
           females.push(data)
         }
-        if (data.demographic_value == "Male" 
-            && data.administered_date.substring(data.administered_date.length - 2) == "/1" 
-            && data.administered_date.substring(0, 4) == "2021") {
+        if (data.demographic_value == "Male"
+          && data.administered_date.substring(data.administered_date.length - 2) == "/1"
+          && data.administered_date.substring(0, 4) == "2021") {
           males.push(data)
         }
       })
+
+      console.log(females)
+      console.log(males)
 
       const timeParser = d3.timeParse('%Y/%m/%d');
       const timeScale = d3.scaleTime()
@@ -51,14 +54,18 @@
         .range([0, chartWidth]);
 
       // gender extent
-      const femaleExtent = d3.extent(females, d => d['cumulative_total_doses']);
-      const maleExtent = d3.extent(males, d => d['cumulative_total_doses'])
+      const femaleExtent = d3.extent(females, d => Number(d['cumulative_total_doses']));
+      const maleExtent = d3.extent(males, d => Number(d['cumulative_total_doses']))
 
-      const genderMax = d3.max([femaleExtent[1], maleExtent[1]]);
+
       const genderMin = d3.min([femaleExtent[0], maleExtent[0]]);
+      const genderMax = d3.max([femaleExtent[1], maleExtent[1]]);
+
+      console.log(genderMax)
+      console.log(genderMin)
 
       const valueScale = d3.scaleLinear()
-        .domain([2000, 300000])
+        .domain([genderMin, genderMax])
         .range([chartHeight, 0])
 
       const genderScale = d3.scaleOrdinal(d3.schemeCategory10)
@@ -100,7 +107,7 @@
 
       var lineGen = d3.line()
         .x(d => timeScale(timeParser(d.administered_date)))
-        .y(d => valueScale(Number(d.total_doses)));
+        .y(d => valueScale(Number(d.cumulative_total_doses)));
 
       lines = chartArea.selectAll("g.segment")
         .data(series)
@@ -119,7 +126,7 @@
         .join("circle")
         .attr("r", 4)
         .attr("cx", d => timeScale(timeParser(d.administered_date)))
-        .attr("cy", d => valueScale(Number(d.total_doses)))
+        .attr("cy", d => valueScale(Number(d.cumulative_total_doses)))
         .attr("fill", d => d.demographic_value == "Male" ? "#427ED1" : "#ffa9d0")
         .attr("opacity", .7)
 
@@ -138,7 +145,7 @@
           .attr("r", 8)
           .attr("opacity", 1);
         d3.select("#info")
-          .text(d3.select(this).datum().total_doses)
+          .text(d3.select(this).datum().cumulative_total_doses)
       })
 
       circles.on("mouseout", function () {
@@ -150,7 +157,7 @@
       })
 
 
-      console.log(series)
+      //console.log(series)
 
 
     }
@@ -179,8 +186,8 @@
 
       const groups = await d3.csv("./us_state_vaccinations.csv");
       const states = await d3.json("./elections.json")
-      console.log(groups)
-      console.log(states)
+      //console.log(groups)
+      //console.log(states)
       const state_elections = new Map();
       const abbr = new Map();
 
@@ -195,7 +202,7 @@
           data.push(d);
         }
       })
-      console.log(data)
+      //console.log(data)
 
       data.sort((a, b) => d3.ascending(Number(a.people_fully_vaccinated_per_hundred), Number(b.people_fully_vaccinated_per_hundred)))
 
@@ -210,7 +217,7 @@
       const ppvExtent = d3.extent(data, d => Number(d.people_fully_vaccinated_per_hundred));
       const avgPPV = d3.mean(data, d => Number(d.people_fully_vaccinated_per_hundred));
       const ppvDist = Math.max(Math.abs(ppvExtent[0] - avgPPV), Math.abs(ppvExtent[1] - avgPPV));
-      console.log(avgPPV, ppvDist);
+      //console.log(avgPPV, ppvDist);
 
       const adjustedPPVExtent = [avgPPV - ppvDist, avgPPV + ppvDist];
       const ppvScale = d3.scaleLinear().domain(adjustedPPVExtent).range([chartHeight, 0]);
@@ -248,26 +255,26 @@
         .attr('class', 'lollipop')
         .attr("transform", d => `translate(${Math.floor(stateScale(abbr.get(d.location)))},0)`)
 
-      console.log(lollipops)
+      //console.log(lollipops)
 
 
       svg2.append("text")
-               .style("font", "bold 15px arial")
-               .attr("y", 375)
-               .attr("x", 455)
-               .attr("dy", "1em")
-               .style("text-anchor", "middle")
-               .text("States");
+        .style("font", "bold 15px arial")
+        .attr("y", 375)
+        .attr("x", 455)
+        .attr("dy", "1em")
+        .style("text-anchor", "middle")
+        .text("States");
 
       svg2.append("text")
-          .style("font", "bold 15px arial")
-          .attr("transform", "rotate(-90)")
-          .attr("y", 5)
-          .attr("x", -200)
-          .attr("dy", "1em")
-          .style("text-anchor", "middle")
-          .text("Fully-vaccinated per Hundred");
-      
+        .style("font", "bold 15px arial")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 5)
+        .attr("x", -200)
+        .attr("dy", "1em")
+        .style("text-anchor", "middle")
+        .text("Fully-vaccinated per Hundred");
+
 
       lollipops.append("line")
         .attr("class", "stick")
@@ -307,14 +314,17 @@
         textbox.html('');  // shorthand to empty out an element
         mouseover.attr("visibility", "");
         let stateName = `State: ${d3.select(this).datum().location}`;
-        let result = `People Fully-Vaccinated per 100: ${d3.select(this).datum().people_fully_vaccinated_per_hundred}`;
-        let diff = `Total Vaccinations per 100: ${d3.select(this).datum().total_vaccinations_per_hundred}`;
+        let vacc_num = `People Fully-Vaccinated per 100: ${d3.select(this).datum().people_fully_vaccinated_per_hundred}`;
+        let total = `Total Vaccinations per 100: ${d3.select(this).datum().total_vaccinations_per_hundred}`;
+        let election = `Recent Presidential Result: ${state_elections.get(d3.select(this).datum().location) == "Red" ? "Republican" : "Democrat"}`;
         textbox.append("text").text(stateName)
           .attr("x", 0).attr("y", 10);
-        textbox.append("text").text(result)
+        textbox.append("text").text(vacc_num)
           .attr("x", 0).attr("y", 30);
-        textbox.append("text").text(diff)
+        textbox.append("text").text(total)
           .attr("x", 0).attr("y", 50);
+        textbox.append("text").text(election)
+          .attr("x", 0).attr("y", 70);
         //updateMouseover(d3.select(this).datum())
       });
 

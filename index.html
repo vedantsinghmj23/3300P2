@@ -6,13 +6,16 @@
 </head>
 
 <body style="background-color: rgb(240, 240, 240);">
-  <div class = "title">
-    <H1 class = "text" style="font-family: 'Satisfy', cursive; color: black; text-shadow: 4px 4px #616161; font-size: 45px;">COVID in 2021</H1>
+  <div class="title">
+    <H1 class="text"
+      style="font-family: 'Satisfy', cursive; color: black; text-shadow: 4px 4px #616161; font-size: 45px;">COVID in
+      2021</H1>
     <hr width="50%">
-    <H3 class = "text" style="color: black; text-shadow: 1px 1px #616161;">Correlation with Gender and State</H3>
+    <H3 class="text" style="color: black; text-shadow: 1px 1px #616161;">Correlation with Gender, State, and Political
+      Affiliation</H3>
   </div>
   <br>
-  <div class = "center">
+  <div class="center">
     <svg id="svg1" height=400 width=800 style="border:1px solid black;"></svg>
     <br></br>
     <svg id="svg2" height=400 width=900 style="border:1px solid black;"></svg>
@@ -48,10 +51,8 @@
         .domain([timeParser("2021/1/1"), timeParser("2021/10/1")])
         .range([0, chartWidth]);
 
-      // gender extent
       const femaleExtent = d3.extent(females, d => Number(d['cumulative_fully_vaccinated']));
       const maleExtent = d3.extent(males, d => Number(d['cumulative_fully_vaccinated']))
-
 
       const genderMin = d3.min([femaleExtent[0], maleExtent[0]]);
       const genderMax = d3.max([femaleExtent[1], maleExtent[1]]);
@@ -276,15 +277,15 @@
       const outcomeScale = d3.scaleOrdinal().domain(['Red', 'Blue'])
         .range(['#b8351e', '#2369b1']);
 
-      const ppvExtent = d3.extent(data, d => Number(d.people_fully_vaccinated_per_hundred));
-      const avgPPV = d3.mean(data, d => Number(d.people_fully_vaccinated_per_hundred));
-      const ppvDist = Math.max(Math.abs(ppvExtent[0] - avgPPV), Math.abs(ppvExtent[1] - avgPPV));
+      const pfvExtent = d3.extent(data, d => Number(d.people_fully_vaccinated_per_hundred));
+      const avgPFV = d3.mean(data, d => Number(d.people_fully_vaccinated_per_hundred));
+      const pfvDist = Math.max(Math.abs(pfvExtent[0] - avgPFV), Math.abs(pfvExtent[1] - avgPFV));
 
-      const adjustedPPVExtent = [avgPPV - ppvDist, avgPPV + ppvDist];
-      const ppvScale = d3.scaleLinear().domain(adjustedPPVExtent).range([chartHeight, 0]);
+      const adjustedpfvExtent = [avgPFV - pfvDist, avgPFV + pfvDist];
+      const pfvScale = d3.scaleLinear().domain(adjustedpfvExtent).range([chartHeight, 0]);
 
-      let leftAxis1 = d3.axisLeft(ppvScale);
-      let leftGridlines1 = d3.axisLeft(ppvScale)
+      let leftAxis1 = d3.axisLeft(pfvScale);
+      let leftGridlines1 = d3.axisLeft(pfvScale)
         .tickSize(-chartWidth - 10)
         .tickFormat("")
       annotations1.append("g")
@@ -306,11 +307,10 @@
         .attr("transform", `translate(${margin.left - 10},${margin.top})`)
         .attr("x1", 0)
         .attr("x2", chartWidth + 10)
-        .attr("y1", ppvScale(avgPPV))
-        .attr("y2", ppvScale(avgPPV))
+        .attr("y1", pfvScale(avgPFV))
+        .attr("y2", pfvScale(avgPFV))
         .attr("stroke", "black");
 
-      //look at data again
       let lollipops = chartArea1.selectAll('g.lollipop').data(data)
         .join('g')
         .attr('class', 'lollipop')
@@ -338,22 +338,22 @@
         .attr("class", "stick")
         .attr("x1", 0)
         .attr("x2", 0)
-        .attr("y1", ppvScale(avgPPV))
-        .attr("y2", d => ppvScale(Number(d.people_fully_vaccinated_per_hundred)))
+        .attr("y1", pfvScale(avgPFV))
+        .attr("y2", d => pfvScale(Number(d.people_fully_vaccinated_per_hundred)))
         .attr("stroke", "black")
 
       lollipops.append("circle")
         .attr("class", "pop")
         .attr("r", 8)
         .attr("fill", d => outcomeScale(state_elections.get(d.location)))
-        .attr("cx", 0) // 0 because we have a translate() on the <g> tag for x location
-        .attr("cy", d => ppvScale(Number(d.people_fully_vaccinated_per_hundred)))
+        .attr("cx", 0)
+        .attr("cy", d => pfvScale(Number(d.people_fully_vaccinated_per_hundred)))
 
       lollipops.append("rect")
         .attr("class", "activeRegion")
         .attr("x", -10)
-        .attr("y", d => Math.min(ppvScale(avgPPV), ppvScale(Number(d.people_fully_vaccinated_per_hundred))))
-        .attr("height", d => Math.abs(ppvScale(avgPPV) - ppvScale(Number(d.people_fully_vaccinated_per_hundred))))
+        .attr("y", d => Math.min(pfvScale(avgPFV), pfvScale(Number(d.people_fully_vaccinated_per_hundred))))
+        .attr("height", d => Math.abs(pfvScale(avgPFV) - pfvScale(Number(d.people_fully_vaccinated_per_hundred))))
         .attr("width", 20)
         .attr("opacity", 0);
 
@@ -361,17 +361,16 @@
         .attr("transform", `translate(${margin.left + 15},${margin.top + 15})`);
 
       mouseover.append("rect").attr("class", "frame")
-        // we style this in <head>
         .attr("x", 0).attr("y", 0)
-        .attr("rx", 5).attr("ry", 5)  // rx and ry round corners
-        .attr("height", 130)  // set width later
+        .attr("rx", 5).attr("ry", 5)
+        .attr("height", 130)
       const textbox = mouseover.append("g").attr("transform", "translate(10,10)");
       const format = d3.format(',d');
 
       let backdrop = svg2.append("rect")
         .attr("x", 80).attr("y", 60)
         .attr("height", 80).attr("width", 270)
-        .attr("opacity", 0)  // rx and ry round corners
+        .attr("opacity", 0)
 
       svg2.append("text")
         .style("font", "bold 15px arial")
@@ -380,7 +379,7 @@
         .text("Fully-Vaccinated Per 100 by State in 2021")
 
       lollipops.on("mouseover", function () {
-        textbox.html('');  // shorthand to empty out an element
+        textbox.html('');
         mouseover.attr("visibility", "");
         backdrop.attr("opacity", .3)
           .attr("fill", outcomeScale(state_elections.get(d3.select(this).datum().location)))
@@ -396,7 +395,6 @@
           .attr("x", 0).attr("y", 50);
         textbox.append("text").text(election)
           .attr("x", 0).attr("y", 70);
-        //updateMouseover(d3.select(this).datum())
       });
 
       lollipops.on("mouseout", function () {
